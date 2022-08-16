@@ -24,7 +24,7 @@ class StreetRequest extends FormRequest
     public function rules()
     {
         return [
-            "street" => "required|max:70",
+            "street" => "required|digits_between:3,70",
         ];
     }
 }
