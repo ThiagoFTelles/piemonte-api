@@ -1,8 +1,12 @@
 <?php
 
-namespace App\WebService;
+namespace App\Models;
 
-class ViaCEP{
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class ViaCEP extends Model{
+    use HasFactory;
     /**
      * Método responsável por consultar um CEP no ViaCEP
      * @param string $postal_code

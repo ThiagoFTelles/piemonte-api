@@ -7,6 +7,7 @@ use App\Http\Requests\PostalCodeRequest;
 use App\Http\Requests\StoreAddressRequest;
 use App\Http\Requests\StreetRequest;
 use App\Models\Address;
+use App\Models\ViaCEP;
 use Illuminate\Http\Request;
 
 use function GuzzleHttp\Promise\all;
@@ -68,8 +69,9 @@ class AddressController extends Controller
 
     public function postalCodeSarch(PostalCodeRequest $request)
     {
-        $cep = $request->input('postal_code');
-        return dd($cep);
+        $postalCode = $request->input('postal_code');
+        $postalCodeData = ViaCEP::searchPostalCode($postalCode);
+        return dd($postalCodeData);
     }
 
     public function  streetSearch(StreetRequest $request)
