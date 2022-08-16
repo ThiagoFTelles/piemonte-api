@@ -25,6 +25,10 @@ class ViaCEP{
         //FECHA A CONEXÃO ABERTA
         curl_close($curl);
 
-        dd($response);
+        //CONVERTE JSON PARA ARRAY
+        $array = json_decode($response, true);
+
+        //RETORNA O CONTEÚDO EM ARRAY
+        return isset($array['cep']) ? $array : null;
     }
 }
