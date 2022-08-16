@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostalCodeRequest;
 use App\Http\Requests\StoreAddressRequest;
+use App\Http\Requests\StreetRequest;
 use App\Models\Address;
 use Illuminate\Http\Request;
 
@@ -62,6 +64,18 @@ class AddressController extends Controller
     public function show(Address $address)
     {
         //
+    }
+
+    public function postalCodeSarch(PostalCodeRequest $request)
+    {
+        $cep = $request->input('postal_code');
+        return dd($cep->all());
+    }
+
+    public function  streetSearch(StreetRequest $request)
+    {
+        $street = $request->input('street');
+        return dd($street->all());
     }
 
     /**
