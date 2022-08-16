@@ -24,7 +24,7 @@ class PostalCodeRequest extends FormRequest
     public function rules()
     {
         return [
-            "postal_code" => "required|max:8",
+            "postal_code" => "required|digits:8",
         ];
     }
 }

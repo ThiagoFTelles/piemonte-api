@@ -24,7 +24,7 @@ class StoreAddressRequest extends FormRequest
     public function rules()
     {
         return [
-            "postal_code" => "required|max:8",
+            "postal_code" => "required|digits:8",
             "street" => "required|max:70",
             "number" => "max:10",
             "complement" => "max:70",

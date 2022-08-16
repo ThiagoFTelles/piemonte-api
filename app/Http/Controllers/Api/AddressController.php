@@ -69,13 +69,13 @@ class AddressController extends Controller
     public function postalCodeSarch(PostalCodeRequest $request)
     {
         $cep = $request->input('postal_code');
-        return dd($cep->all());
+        return dd($cep);
     }
 
     public function  streetSearch(StreetRequest $request)
     {
         $street = $request->input('street');
-        return dd($street->all());
+        return dd($street);
     }
 
     /**
