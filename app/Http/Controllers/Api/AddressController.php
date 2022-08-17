@@ -122,8 +122,12 @@ class AddressController extends Controller
 
     public function  streetSearch(StreetRequest $request)
     {
+        $state = $request->input('state');
+        $city = $request->input('city');
         $street = $request->input('street');
-        return dd($street);
+        $result = ViaCEP::searchStreet($state, $city, $street);
+
+        return $result ? $result->toJson() : null;
     }
 
 }
