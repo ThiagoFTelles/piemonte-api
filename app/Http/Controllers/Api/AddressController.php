@@ -67,19 +67,6 @@ class AddressController extends Controller
         //
     }
 
-    public function postalCodeSarch(PostalCodeRequest $request)
-    {
-        $postalCode = $request->input('postal_code');
-        $postalCodeData = ViaCEP::searchPostalCode($postalCode);
-        return dd($postalCodeData);
-    }
-
-    public function  streetSearch(StreetRequest $request)
-    {
-        $street = $request->input('street');
-        return dd($street);
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -124,4 +111,19 @@ class AddressController extends Controller
             'message' => 'Address deleted succesfully.'
         ], 200);
     }
+    
+    public function postalCodeSarch(PostalCodeRequest $request)
+    {
+        $postalCode = $request->input('postal_code');
+        $localAddress = Address::firstWhere('postal_code', $postalCode);
+        $postalCodeData = $localAddress ? $localAddress->toJson() : ViaCEP::searchPostalCode($postalCode);
+        return dd($postalCodeData);
+    }
+
+    public function  streetSearch(StreetRequest $request)
+    {
+        $street = $request->input('street');
+        return dd($street);
+    }
+
 }
