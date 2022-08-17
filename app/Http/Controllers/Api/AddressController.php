@@ -127,7 +127,7 @@ class AddressController extends Controller
         $street = $request->input('street');
         $result = ViaCEP::searchStreet($state, $city, $street);
 
-        return $result ? $result->toJson() : null;
+        return $result ? json_encode($result) : null;
     }
 
 }
