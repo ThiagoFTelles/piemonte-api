@@ -30,7 +30,7 @@ class StoreAddressRequest extends FormRequest
             "complement" => "max:70",
             "district" => "required|max:70",
             "city" => "required|digits_between:3,70",
-            "state" => "required|max:70",
+            "state" => "required|digits:2",
             "country" => "required|max:70",
         ];
     }
