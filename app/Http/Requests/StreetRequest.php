@@ -25,6 +25,8 @@ class StreetRequest extends FormRequest
     {
         return [
             "street" => "required|digits_between:3,70",
+            "state" => "required|digits:2",
+            "city" => "required|digits_between:3,70",
         ];
     }
 }
