@@ -25,13 +25,13 @@ class StoreAddressRequest extends FormRequest
     {
         return [
             "postal_code" => "required|digits:8",
-            "street" => "required|digits_between:3,70",
+            "street" => "required|min:3",
             "number" => "max:10",
-            "complement" => "max:70",
-            "district" => "required|max:70",
-            "city" => "required|digits_between:3,70",
-            "state" => "required|digits:2",
-            "country" => "required|max:70",
+            "complement" => "min:3",
+            "district" => "required|min:3",
+            "city" => "required|min:3",
+            "state" => "required|size:2",
+            "country" => "required|min:3",
         ];
     }
 }
