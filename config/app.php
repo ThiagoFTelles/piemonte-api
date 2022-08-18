@@ -153,12 +153,13 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
-
+    'paths' => ['api/*'],
     'providers' => [
 
         /*
          * Laravel Framework Service Providers...
          */
+        FruitCake\Cors\CorsServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
