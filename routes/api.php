@@ -9,5 +9,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('addresses', AddressController::class);
-Route::post('/postal-code-search', [AddressController::class, 'postalCodeSarch']);
-Route::post('/street-search', [AddressController::class, 'streetSearch']);
+Route::get('/postal-code-search/{code}', [AddressController::class, 'postalCodeSarch']);
+Route::get('/street-search/{state}/{city}/{street}', [AddressController::class, 'streetSearch']);

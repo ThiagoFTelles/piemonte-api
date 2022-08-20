@@ -25,7 +25,9 @@ class AddressController extends Controller
         
         return response()->json([
             'status' => true,
-            'addresses' => $addresses
+            'addresses' => [
+                'original' => $addresses
+                ]
         ]);
     }
 
@@ -112,19 +114,18 @@ class AddressController extends Controller
         ], 200);
     }
     
-    public function postalCodeSarch(PostalCodeRequest $request)
+    public function postalCodeSarch($code)
     {
-        $postalCode = $request->input('postal_code');
-        $localAddress = Address::firstWhere('postal_code', $postalCode);
-        $postalCodeData = $localAddress ? $localAddress->toJson() : ViaCEP::searchPostalCode($postalCode);
-        return dd($postalCodeData);
+        $localAddress = Address::firstWhere('postal_code', $code);
+        $postalCodeData = $localAddress ? ['original' => $localAddress] : ViaCEP::searchPostalCode($code);
+        return response()->json([
+            'status' => true,
+            'address' => $postalCodeData
+        ]);
     }
 
-    public function  streetSearch(StreetRequest $request)
+    public function  streetSearch($state, $city, $street)
     {
-        $state = $request->input('state');
-        $city = $request->input('city');
-        $street = $request->input('street');
         $result = ViaCEP::searchStreet($state, $city, $street);
 
         return $result ? json_encode($result) : null;
