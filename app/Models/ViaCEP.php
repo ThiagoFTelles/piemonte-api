@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Requests\StoreAddressRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\HttpFoundation\Response;
 
 class ViaCEP extends Model{
     use HasFactory;
@@ -72,7 +73,7 @@ class ViaCEP extends Model{
         $array = json_decode($response, true);
 
         //RETORNA O CONTEÚDO
-        return isset($array[0]['cep']) ? $array : null;
+        return isset($array[0]['cep']) ? $array : response([],Response::HTTP_NO_CONTENT);
     }
 
     public static function addressResponse($postal_code, $street, $number, $complement, $district, $city, $state, $country) {
