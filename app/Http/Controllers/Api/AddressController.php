@@ -7,14 +7,26 @@ use App\Http\Requests\StoreAddressRequest;
 use App\Models\ViaCEP;
 use App\Repositories\Contracts\AddressRepositoryInterface;
 use App\Models\Address;
+use App\Services\AddressService;
+use Exception;
 
 class AddressController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @var AddressService
      */
+    protected $addressService;
+
+    /**
+     * PostController Constructor
+     *
+     * @param AddressService $postService
+     *
+     */
+    public function __construct(AddressService $addressService)
+    {
+        $this->addressService = $addressService;
+    }    
     public function index(AddressRepositoryInterface $model)
     {
         $addresses = $model->findAll();
@@ -45,13 +57,29 @@ class AddressController extends Controller
      */
     public function store(StoreAddressRequest $request)
     {
-        $address = Address::create($request->all());
+        $data = $request->only([
+            "postal_code",
+            "street",
+            "number",
+            "complement",
+            "district",
+            "city",
+            "state",
+            "country"
+        ]);
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Address created succesfully.',
-            'address' => $address
-        ], 200);
+        $result = ['status' => 200];
+
+        try{
+            $result['data'] = $this->addressService->saveAddressData($data);
+        } catch (Exception $e){
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
     }
 
     /**
