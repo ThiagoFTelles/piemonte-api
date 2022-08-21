@@ -3,14 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PostalCodeRequest;
 use App\Http\Requests\StoreAddressRequest;
-use App\Http\Requests\StreetRequest;
-use App\Models\Address;
 use App\Models\ViaCEP;
-use Illuminate\Http\Request;
-
-use function GuzzleHttp\Promise\all;
+use App\Repositories\Contracts\AddressRepositoryInterface;
+use App\Models\Address;
 
 class AddressController extends Controller
 {
@@ -19,9 +15,9 @@ class AddressController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(AddressRepositoryInterface $model)
     {
-        $addresses = Address::all();
+        $addresses = $model->findAll();
         
         return response()->json([
             'status' => true,
