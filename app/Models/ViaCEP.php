@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
-use App\Http\Requests\StoreAddressRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ViaCEP extends Model{
     use HasFactory;
     /**
      * Método responsável por consultar um CEP no ViaCEP
      * @param string $postal_code
-     * @return array
+     * @return JsonResponse
     */
     public static function searchPostalCode(string $postal_code) {
         // INICIA O CURL
@@ -73,7 +73,7 @@ class ViaCEP extends Model{
         $array = json_decode($response, true);
 
         //RETORNA O CONTEÚDO
-        return isset($array[0]['cep']) ? $array : response([],Response::HTTP_NO_CONTENT);
+        return isset($array[0]['cep']) ? response()->json($array, 200) : response([],Response::HTTP_NO_CONTENT);
     }
 
     public static function addressResponse($postal_code, $street, $number, $complement, $district, $city, $state, $country) {
@@ -87,6 +87,5 @@ class ViaCEP extends Model{
             "state" => $state,
             "street" => $street,
         ], 200);
-        ;
     }
 }
