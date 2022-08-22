@@ -13,9 +13,9 @@ class AddressRepository extends AbstractRepository implements AddressRepositoryI
   protected $model;
 
   /**
-   * PostRepository constructor.
+   * AddressRepository constructor.
    *
-   * @param Address $post
+   * @param Address $model
    */
   public function __construct(Address $model)
   {
@@ -25,7 +25,7 @@ class AddressRepository extends AbstractRepository implements AddressRepositoryI
     /**
    * Save Address
    *
-   * @param $data
+   * @param array $data
    * @return Address
    */
   public function save($data)
@@ -45,4 +45,30 @@ class AddressRepository extends AbstractRepository implements AddressRepositoryI
 
       return $model->fresh();
   }
+
+  /**
+   * Update Address
+   *
+   * @param array $data
+   * @return Address
+   */
+  public function update($data, $id)
+  {
+      
+      $address = $this->model->find($id);
+
+      $address->postal_code = $data['postal_code'];
+      $address->street = $data['street'];
+      $address->number = $data['number'];
+      $address->complement = $data['complement'];
+      $address->district = $data['district'];
+      $address->city = $data['city'];
+      $address->state = $data['state'];
+      $address->country = $data['country'];
+
+      $address->update();
+
+      return $address;
+  }
+
 }
